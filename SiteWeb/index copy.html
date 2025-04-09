@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoLytix - AI-Powered Urban Noise Monitoring in Morocco</title>
+    <meta name="description" content="EchoLytix combats noise pollution in Morocco's urban centers with AI-driven solutions addressing noise pollution's health impacts.">
+    <!-- Google Fonts with additional weights -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#8B5CF6',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    boxShadow: {
+                        'custom': '0 10px 25px -5px rgba(59, 130, 246, 0.1), 0 8px 10px -6px rgba(59, 130, 246, 0.1)',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="src/css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Additional Styles -->
+    <style>
+        .gradient-text {
+            background: linear-gradient(90deg, #3B82F6, #10B981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .card {
+            @apply bg-white p-6 rounded-xl shadow-custom transition-all duration-300 hover:shadow-lg border border-gray-100;
+        }
+        
+        .btn-primary {
+            @apply inline-block px-6 py-3 bg-primary hover:bg-primary/90 text-white font-medium rounded-full transition-all shadow-md hover:shadow-xl transform hover:-translate-y-0.5;
+        }
+        
+        .btn-secondary {
+            @apply inline-block px-6 py-3 bg-white hover:bg-gray-100 text-primary font-medium rounded-full transition-all shadow-md hover:shadow-xl border border-primary transform hover:-translate-y-0.5;
+        }
+        
+        .noise-level {
+            @apply w-full bg-gray-200 rounded-full h-2.5 overflow-hidden;
+        }
+        
+        .noise-level-bar {
+            @apply h-full;
+        }
+        
+        .noise-level-low {
+            @apply bg-green-500;
+        }
+        
+        .noise-level-medium {
+            @apply bg-yellow-500;
+        }
+        
+        .noise-level-high {
+            @apply bg-red-500;
+        }
+        
+        .scene-container {
+            @apply rounded-2xl overflow-hidden min-h-[400px] shadow-xl;
+        }
+        
+        .sound-visualization {
+            @apply h-48 bg-gray-100 rounded-2xl overflow-hidden shadow-inner;
+        }
+        
+        .section {
+            @apply py-20;
+        }
+
+        /* Enhanced styles */
+        .glass-card {
+            @apply bg-white/90 backdrop-blur-md border-white/20 border;
+        }
+        
+        .feature-card {
+            @apply bg-gradient-to-br from-white to-gray-50 hover:from-primary/5 hover:to-primary/10;
+        }
+        
+        .animated-border {
+            @apply relative after:absolute after:inset-0 after:border-2 after:border-primary/30 after:rounded-xl after:animate-pulse-slow;
+        }
+    </style>
+</head>
+<body class="font-sans text-dark bg-light antialiased">
+    <!-- Navigation - Enhanced with glass morphism -->
+    <nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md z-50 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="text-primary text-3xl animate-pulse">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <h1 class="text-2xl font-bold gradient-text">EchoLytix</h1>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="font-medium hover:text-primary transition-colors relative group">
+                    Features
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#about" class="font-medium hover:text-primary transition-colors relative group">
+                    About
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#technology" class="font-medium hover:text-primary transition-colors relative group">
+                    Technology
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#impact" class="font-medium hover:text-primary transition-colors relative group"></a>
+                    Impact
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#team" class="font-medium hover:text-primary transition-colors relative group">
+                    Team
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+            
+            <div>
+                <a href="#contact" class="btn-primary">Get Started</a>
+            </div>
+            
+            <div class="md:hidden text-2xl cursor-pointer" id="mobile-menu-button"></div>
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white/90 backdrop-blur-md absolute w-full left-0 py-4 shadow-lg" id="mobile-menu">
+            <div class="container mx-auto px-4 flex flex-col space-y-4">
+                <a href="#features" class="font-medium hover:text-primary transition-colors">Features</a>
+                <a href="#about" class="font-medium hover:text-primary transition-colors">About</a>
+                <a href="#technology" class="font-medium hover:text-primary transition-colors">Technology</a>
+                <a href="#impact" class="font-medium hover:text-primary transition-colors">Impact</a>
+                <a href="#team" class="font-medium hover:text-primary transition-colors">Team</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Enhanced with gradients and animations -->
+    <section class="pt-32 pb-20 bg-gradient-to-br from-primary/10 to-secondary/20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div class="container mx-auto px-4 relative">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate__animated animate__fadeInUp">
+                        AI-Powered <span class="gradient-text">Urban Noise</span> Monitoring in Morocco
+                    </h1>
+                    <p class="text-lg md:text-xl mb-8 text-gray-700 animate__animated animate__fadeInUp animate__delay-1s">
+                        EchoLytix combats noise pollution in Morocco's urban centers with smart monitoring technology, improving quality of life across Moroccan cities.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#demo" class="btn-primary text-center">
+                            <i class="fas fa-play-circle mr-2"></i> See Demo
+                        </a>
+                        <a href="#contact" class="btn-secondary text-center">
+                            <i class="fas fa-envelope mr-2"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2"></div>
+                    <div class="scene-container animate__animated animate__fadeIn animate__delay-3s" id="hero-3d-scene">
+                        <!-- 3D scene will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative elements -->
+        <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 -left-20 w-60 h-60 bg-secondary/20 rounded-full blur-3xl"></div>
+    </section>
+
+    <!-- Stats Section - Enhanced with cards -->
+    <section class="py-16 bg-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-noise-pattern opacity-5"></div>
+        <div class="container mx-auto px-4 relative">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-xl transform hover:scale-105 transition-all">
+                    <div class="text-4xl md:text-5xl font-bold text-primary mb-2">85–90+ dB</div>
+                    <p class="text-lg">Urban Noise Crisis Level</p>
+                </div>
+                <div class="glass-card p-8 rounded-xl transform hover:scale-105 transition-all">
+                    <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">45%</div>
+                    <p class="text-lg">Urban Residents with Sleep Disturbances</p>
+                </div>
+                <div class="glass-card p-8 rounded-xl transform hover:scale-105 transition-all">
+                    <div class="text-4xl md:text-5xl font-bold text-accent mb-2">30%</div>
+                    <p class="text-lg">Increase in Stress-Related Disorders</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section - Enhanced with animations -->
+    <section id="features" class="section">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <br><br>
+                <span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-medium mb-4">Features</span>
+                <br>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Real-Time Sound Level Tracking</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    Our advanced acoustic sensors continuously measure and analyze sound patterns across multiple city zones.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card card transform hover:-translate-y-2 animated-border">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Advanced Acoustic Sensors</h3>
+                    <p class="text-gray-700"></p>
+                        Continuous audio data capture with high-precision sensors strategically placed throughout urban areas.
+                    </p>
+                </div>
+                
+                <div class="feature-card card transform hover:-translate-y-2 animated-border">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">AI Algorithms</h3>
+                    <p class="text-gray-700">
+                        Machine learning algorithms identify noise sources using spectral analysis with high accuracy.
+                    </p>
+                </div>
+                
+                <div class="feature-card card transform hover:-translate-y-2 animated-border">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Secure Cloud Processing</h3>
+                    <p class="text-gray-700">
+                        Encrypted sound data transmits to secure cloud systems for real-time analysis and visualization.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <div class="sound-visualization relative" id="sound-wave-visualization">
+                    <!-- Sound wave visualization will be rendered here -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 animate-pulse-slow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The rest of your sections would follow with similar enhancements -->
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"></script>
+    
+    <script src="src/js/main.js"></script>
+    <script src="src/js/3dModel.js"></script>
+    <script src="src/js/noiseMap.js"></script>
+    <script src="src/js/animations.js"></script>
+</body>
+</html>
